@@ -1,0 +1,23 @@
+{
+    "name": "knevelina/schoolvakanties",
+    "description": "Schoolvakanties in iCal-formaat",
+    "type": "project",
+    "require": {
+        "guzzlehttp/guzzle": "^7.9",
+        "ext-json": "*",
+        "php": "^8.3",
+        "spatie/icalendar-generator": "^2.9"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Knevelina\\Schoolvakanties\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Wouter van den Brink",
+            "email": "git@woutervdb.com"
+        }
+    ]
+}
