@@ -1,6 +1,5 @@
 <?php
 
-use GuzzleHttp\Exception\GuzzleException;
 use Knevelina\Schoolvakanties\RijksoverheidApi;
 use Spatie\IcalendarGenerator\Components\Calendar;
 use Spatie\IcalendarGenerator\Components\Event;
@@ -9,7 +8,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 try {
     $vacations = RijksoverheidApi::getVacations();
-} catch (RuntimeException|GuzzleException $e) {
+} catch (RuntimeException $e) {
     http_response_code(500);
     echo $e->getMessage();
     die;
