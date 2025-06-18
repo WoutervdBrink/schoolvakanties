@@ -6,6 +6,8 @@ use Spatie\IcalendarGenerator\Components\Event;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+date_default_timezone_set('Europe/Amsterdam');
+
 try {
     $vacations = RijksoverheidApi::getVacations();
 } catch (RuntimeException $e) {

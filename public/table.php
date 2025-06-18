@@ -3,6 +3,8 @@
 use Knevelina\Schoolvakanties\RijksoverheidApi;
 
 require_once __DIR__ . '/../vendor/autoload.php';
+
+date_default_timezone_set('Europe/Amsterdam');
 ?>
 <!doctype html>
 <html lang="en">
