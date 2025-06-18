@@ -4,16 +4,16 @@ namespace Knevelina\Schoolvakanties;
 
 use DateTime;
 
-class Range
+readonly class Range
 {
     public function __construct(
-        public readonly DateTime $start,
-        public readonly DateTime $end,
+        public DateTime $start,
+        public DateTime $end,
 
         /**
          * @var ?list<Region> $regions
          */
-        public readonly ?array     $regions,
+        public ?array   $regions,
     )
     {
         //

@@ -2,6 +2,8 @@
 
 namespace Knevelina\Schoolvakanties;
 
+use Exception;
+
 class Cache
 {
     private static function getCachePath(): string
@@ -25,7 +27,7 @@ class Cache
             try {
                 $cache->data = $callback();
                 $cache->ts = time();
-            } catch (\Exception $exception) {
+            } catch (Exception) {
                 //
             }
         }
