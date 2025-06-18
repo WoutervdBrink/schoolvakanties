@@ -4,7 +4,7 @@ namespace Knevelina\Schoolvakanties;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use http\Exception\RuntimeException;
+use RuntimeException;
 
 class RijksoverheidApi
 {
@@ -22,7 +22,7 @@ class RijksoverheidApi
             $response = $client->get(self::URL);
 
             if ($response->getStatusCode() !== 200) {
-                throw new \RuntimeException('Could not load data from Rijksoverheid API');
+                throw new RuntimeException('Could not load data from Rijksoverheid API');
             }
             return (string) $response->getBody();
         });
