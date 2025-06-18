@@ -29,6 +29,8 @@ $url = ($_SERVER['HTTPS'] ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $p
     <p>Op zoek naar een tool die schoolvakanties voor één regio publiceert?
         Probeer <a href="https://schoolvakanties.vercel.app/" target="_blank">deze</a> eens.</p>
 
+    <p>Op zoek naar een overzicht van alle vakanties per regio? Probeer <a href="table.php">deze pagina</a> eens.</p>
+
     <div class="input-group mb-3">
         <span class="input-group-text">iCal URL:</span>
         <input type="text" class="form-control" aria-label="iCal URL" id="url_field" readonly disabled
