@@ -12,7 +12,6 @@ class RijksoverheidApi
 
     /**
      * @return list<Vacation>
-     * @throws DateMalformedStringException
      */
     public static function getVacations(): array
     {
@@ -56,6 +55,10 @@ class RijksoverheidApi
             }
         }
 
-        return array_map(fn(object $vacation): Vacation => Vacation::fromData($vacation), $vacations);
+        try {
+            return array_map(fn(object $vacation): Vacation => Vacation::fromData($vacation), $vacations);
+        } catch (DateMalformedStringException) {
+            throw new RuntimeException('Unexpected response from Rijksoverheid API: vacation data is invalid');
+        }
     }
 }

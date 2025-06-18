@@ -2,6 +2,7 @@
 
 namespace Knevelina\Schoolvakanties;
 
+use DateInterval;
 use DateMalformedStringException;
 use DateTime;
 use RuntimeException;
@@ -29,6 +30,7 @@ readonly class Vacation
      */
     private static function parseRegionData(array $regionData): array
     {
+        /** @var list<array{'time': DateTime, 'type': string, 'region': string}> $points */
         $points = [];
 
         foreach ($regionData as $region) {
@@ -41,13 +43,22 @@ readonly class Vacation
                 throw new RuntimeException('Unexpected response from Rijksoverheid API: region should be an object with region, startdate and enddate');
             }
 
+            $start = (new DateTime($region->startdate))->setTime(0, 0);
+            if ($start->format('w') === '6') {
+                $start->add(new DateInterval('P1D'));
+            }
+            $end = (new DateTime($region->enddate))->setTime(0, 0);
+            if ($end->format('w') === '6') {
+                $end->add(new DateInterval('P1D'));
+            }
+
             $points[] = [
-                'time' => new DateTime($region->startdate),
+                'time' => $start,
                 'type' => 'start',
                 'region' => Region::tryFrom($region->region),
             ];
             $points[] = [
-                'time' => new DateTime($region->enddate),
+                'time' => $end,
                 'type' => 'end',
                 'region' => Region::tryFrom($region->region),
             ];
@@ -60,12 +71,17 @@ readonly class Vacation
             return $a['time'] <=> $b['time'];
         });
 
+        /** @var list<Range> $result */
         $result = [];
+
+        /** @var list<string> $activeRegions */
         $activeRegions = [];
+
+        /** @var ?DateTime $prevTime */
         $prevTime = null;
 
         foreach ($points as $point) {
-            if ($prevTime !== null && !empty($activeRegions)) {
+            if ($prevTime !== null && !empty($activeRegions) && $prevTime->diff($point['time'])->d > 1) {
                 $result[] = new Range(
                     clone $prevTime,
                     clone $point['time'],
