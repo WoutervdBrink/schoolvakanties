@@ -2,17 +2,17 @@
 
 namespace Knevelina\Schoolvakanties;
 
+use DateMalformedStringException;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use RuntimeException;
 
 class RijksoverheidApi
 {
-    private const URL = 'https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays?output=json';
+    private const string URL = 'https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays?output=json';
 
     /**
      * @return list<Vacation>
-     * @throws GuzzleException
+     * @throws DateMalformedStringException
      */
     public static function getVacations(): array
     {
